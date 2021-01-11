@@ -7,19 +7,31 @@
     max-width: 1450px;
     height: 100%;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .logo {
       width: 13rem;
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translateY(-50%);
-      transform: translateY(-50%);
 
       img {
         width: 100%;
         margin: 0;
+      }
+    }
+
+    .callToActions{
+      ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        li {
+          a {
+            font-size: 1.8rem;
+            line-height: 1;
+            text-transform: uppercase
+          }
+        }
       }
     }
   }
