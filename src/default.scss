@@ -14,7 +14,8 @@ body {
 html,
 body,
 #root,
-.App {
+.App,
+.fullHeight {
   height: 100%;
 }
 
@@ -34,6 +35,7 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
+  color: black;
 }
 
 a, a:hover {
@@ -48,4 +50,13 @@ a, a:hover {
   max-width: 1450px;
   padding: 0 10px;
   margin: 0 auto;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }
