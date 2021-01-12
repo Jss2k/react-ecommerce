@@ -5,6 +5,7 @@ import { auth, handleUserProfile } from './../../firebase/utils'
 
 import FormInput from './../../components/forms/FormInput'
 import Button from './../../components/forms/Button'
+import AuthWrapper from './../AuthWrapper'
 
 const initialState = {
   displayName: '',
@@ -54,21 +55,21 @@ class Signup extends Component {
       })
 
     } catch(err) {
-      console.log(err)
+      // console.log(err)
     }
   }
 
   render() {
     const { displayName, email, password, confirmPassword, errors } = this.state
 
+    const configAuthWrapper = {
+      headline: 'Signup'
+    }
     return (
-      <div className="signup">
-        <div className="wrap">
-          <h2>
-            Signup
-          </h2>
+      <AuthWrapper {...configAuthWrapper}>
+        <div className="formWrap">
           {errors.length > 0 && (
-            <ul>
+            <ul className="formError">
               {errors.map((err, index) => {
                 return (
                   <li key={index}>
@@ -78,7 +79,6 @@ class Signup extends Component {
               })}
             </ul>
           )}
-          <div className="formWrap">
             <form onSubmit={this.handleFormSubmit}>
               <FormInput
                 type="text"
@@ -114,8 +114,7 @@ class Signup extends Component {
               </Button>
             </form>
           </div>
-        </div>
-      </div>
+      </AuthWrapper>
     )
   }
 }
