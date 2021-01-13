@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, signInWithGoogle } from './../../firebase/utils'
 import AuthWrapper from './../AuthWrapper'
@@ -6,46 +6,59 @@ import Button from './../../components/forms/Button'
 import FormInput from './../../components/forms/FormInput'
 import './styles.scss'
 
-const initialState = {
-  email: '',
-  password: ''
-}
-class SignIn extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...initialState
-    }
+// const initialState = {
+//   email: '',
+//   password: ''
+// }
+const SignIn = props => {
+  const[email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState([])
 
-    this.handleChange = this.handleChange.bind(this)
-  }
+  const resetForm = () => {
+    setEmail('')
+    setPassword('')
+    setErrors([])
+  } 
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     ...initialState
+  //   }
 
-  handleChange(e) {
-    const { name, value } = e.target
+  //   this.handleChange = this.handleChange.bind(this)
+  // }
 
-    this.setState({
-      [name]: value
-    })
-  }
+  // handleChange(e) {
+  //   const { name, value } = e.target
 
-  handleSubmit = async e => {
+  //   this.setState({
+  //     [name]: value
+  //   })
+  // }
+
+  const handleSubmit = async e => {
     e.preventDefault()
-    const { email, password } = this.state
 
     try {
 
       await auth.signInWithEmailAndPassword(email, password)
-      this.setState({
-        ...initialState
+      .then(() => {
+        resetForm()
       })
+      .catch(() => {
+        const err = ['Email or password not found. Please try again.']
+        setErrors(err)
+      })
+
 
     } catch(err) {
       // console.log(err)
     }
   }
 
-  render() {
-    const { email, password } = this.state
+
+    // const { email, password } = this.state
 
     const configAuthWrapper = {
       headline: 'LogIn'
@@ -54,21 +67,32 @@ class SignIn extends Component {
     return (
       <AuthWrapper {...configAuthWrapper}>
         <div className="formWrap">
-         <form onSubmit={this.handleSubmit}>
+        {errors.length > 0 && (
+            <ul className="formError">
+              {errors.map((err, index) => {
+                return (
+                  <li key={index}>
+                    {err}
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+         <form onSubmit={handleSubmit}>
 
             <FormInput 
               type="email"
               name="email"
               value={email}
               placeholder="Email"
-              onChange={this.handleChange}
+              handleChange={e => setEmail(e.target.value)}
             />
             <FormInput 
               type="password"
               name="password"
               value={password}
               placeholder="Password"
-              onChange={this.handleChange}
+              handleChange={e => setPassword(e.target.value)}
             />
 
             <Button type="submit">
@@ -80,8 +104,8 @@ class SignIn extends Component {
                    Sign in with Google
                  </Button>
               </div>
-            </div>
-
+</div>
+            
             <div className="links">
               <Link to="/recovery">
                 Reset Password
@@ -91,7 +115,6 @@ class SignIn extends Component {
         </div>
       </AuthWrapper>
     )
-  }
 }
 
 export default SignIn
