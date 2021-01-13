@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { auth, signInWithGoogle } from './../../firebase/utils'
 import AuthWrapper from './../AuthWrapper'
 import Button from './../../components/forms/Button'
@@ -45,6 +45,7 @@ const SignIn = props => {
       await auth.signInWithEmailAndPassword(email, password)
       .then(() => {
         resetForm()
+        props.history.push('/')
       })
       .catch(() => {
         const err = ['Email or password not found. Please try again.']
@@ -57,7 +58,10 @@ const SignIn = props => {
     }
   }
 
-
+  const socialSignIn = async () => {
+    await signInWithGoogle()
+    props.history.push('/')
+  }
     // const { email, password } = this.state
 
     const configAuthWrapper = {
@@ -100,11 +104,11 @@ const SignIn = props => {
             </Button>
             <div className="socialSignIn">
               <div className="row">
-                <Button onClick={signInWithGoogle}>
+                <Button onClick={socialSignIn}>
                    Sign in with Google
                  </Button>
               </div>
-</div>
+            </div>
             
             <div className="links">
               <Link to="/recovery">
@@ -117,4 +121,4 @@ const SignIn = props => {
     )
 }
 
-export default SignIn
+export default withRouter(SignIn)
