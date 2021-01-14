@@ -1,19 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { auth, signInWithGoogle } from './../../firebase/utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInUser, signInWithGoogle, resetAllAuthForms } from './../../redux/User/user.actions'
+
+import './styles.scss'
+
 import AuthWrapper from './../AuthWrapper'
 import Button from './../../components/forms/Button'
 import FormInput from './../../components/forms/FormInput'
-import './styles.scss'
 
+const mapState = ({ user }) => ({
+  signInSuccess: user.signInSuccess,
+  signInError: user.signInError
+})
 // const initialState = {
 //   email: '',
 //   password: ''
 // }
 const SignIn = props => {
+  const { signInSuccess, signInError } = useSelector(mapState)
+  const dispatch = useDispatch()
   const[email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
+
+  useEffect(() => {
+    if (signInSuccess) {
+      resetForm()
+      dispatch(resetAllAuthForms())
+      props.history.push('/')
+    }
+
+  }, [signInSuccess])
+
+  useEffect(() => {
+    if (Array.isArray(signInError) && signInError.length > 0) {
+      setErrors(signInError)
+    }
+  }, [signInError])
 
   const resetForm = () => {
     setEmail('')
@@ -37,27 +61,16 @@ const SignIn = props => {
   //   })
   // }
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
-
-    try {
-
-      await auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        resetForm()
-        props.history.push('/')
-      })
-      .catch(() => {
-        const err = ['Email or password not found. Please try again.']
-        setErrors(err)
-      })
-
-
-    } catch(err) {
-      // console.log(err)
-    }
+    dispatch(signInUser({ email, password }))
+    // resetForm()
+    // props.history.push('/')
   }
 
+  const handleGooleSignIn = () => {
+    dispatch(signInWithGoogle())
+  }
   const socialSignIn = async () => {
     await signInWithGoogle()
     props.history.push('/')
@@ -104,7 +117,7 @@ const SignIn = props => {
             </Button>
             <div className="socialSignIn">
               <div className="row">
-                <Button onClick={socialSignIn}>
+                <Button onClick={handleGooleSignIn}>
                    Sign in with Google
                  </Button>
               </div>
