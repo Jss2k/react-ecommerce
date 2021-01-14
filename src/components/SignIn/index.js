@@ -13,10 +13,7 @@ const mapState = ({ user }) => ({
   signInSuccess: user.signInSuccess,
   signInError: user.signInError
 })
-// const initialState = {
-//   email: '',
-//   password: ''
-// }
+
 const SignIn = props => {
   const { signInSuccess, signInError } = useSelector(mapState)
   const dispatch = useDispatch()
@@ -44,28 +41,10 @@ const SignIn = props => {
     setPassword('')
     setErrors([])
   } 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     ...initialState
-  //   }
-
-  //   this.handleChange = this.handleChange.bind(this)
-  // }
-
-  // handleChange(e) {
-  //   const { name, value } = e.target
-
-  //   this.setState({
-  //     [name]: value
-  //   })
-  // }
 
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(signInUser({ email, password }))
-    // resetForm()
-    // props.history.push('/')
   }
 
   const handleGooleSignIn = () => {
@@ -75,7 +54,6 @@ const SignIn = props => {
     await signInWithGoogle()
     props.history.push('/')
   }
-    // const { email, password } = this.state
 
     const configAuthWrapper = {
       headline: 'LogIn'
