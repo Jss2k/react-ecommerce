@@ -20,7 +20,6 @@ const App = props => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // const { setCurrentUser } = this.props
     const authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth)

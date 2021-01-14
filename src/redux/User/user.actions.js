@@ -39,7 +39,6 @@ export const signUpUser = ({ displayName, email, password, confirmPassword }) =>
         type: userTypes.SIGN_UP_ERROR,
         payload: err
       })
-      // setErrors(err)
       return
     }
 
@@ -68,7 +67,6 @@ export const resetPassword = ({ email }) => async dispatch => {
           type: userTypes.RESET_PASSWORD_SUCCESS,
           payload: true
         })
-        // props.history.push('/login')
       })
       .catch(() => {
         const err = ['Email not found. Please try again.']
@@ -76,7 +74,6 @@ export const resetPassword = ({ email }) => async dispatch => {
           type: userTypes.RESET_PASSWORD_ERROR,
           payload: err
         })
-        // setErrors(err)
       })
 
   } catch(err) {

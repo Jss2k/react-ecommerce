@@ -4,19 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { signUpUser, resetAllAuthForms } from './../../redux/User/user.actions'
 import './styles.scss'
 
-import { auth, handleUserProfile } from './../../firebase/utils'
-
 import FormInput from './../../components/forms/FormInput'
 import Button from './../../components/forms/Button'
 import AuthWrapper from './../AuthWrapper'
 
-// const initialState = {
-//   displayName: '',
-//   email: '',
-//   password: '',
-//   confirmPassword: '',
-//   errors: []
-// }
 const mapState = ({ user }) => ({
   signUpSuccess: user.signUpSuccess,
   signUpError: user.signUpError
@@ -44,22 +35,7 @@ const Signup = props => {
       setErrors(signUpError)
     }
   }, [signUpError])
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     ...initialState
-  //   }
 
-  //   this.handleChange = this.handleChange.bind(this)
-  // }
-
-  // handleChange(e) {
-  //   const { name, value } = e.target
-
-  //   this.setState({
-  //     [name]: value
-  //   })
-  // }
   const resetForm = () => {
     setDisplayName('')
     setEmail('')
@@ -75,21 +51,6 @@ const Signup = props => {
       password,
       confirmPassword 
     }))
-    // if(password !== confirmPassword) {
-    //   const err = ['Password Don\'t match'];
-    //   setErrors(err)
-    //   return
-    // }
-
-    // try {
-    //   const { user } = await auth.createUserWithEmailAndPassword(email, password)
-    //   await handleUserProfile(user, { displayName })
-    //   resetForm()
-    //   props.history.push('/')
-
-    // } catch(err) {
-    //   // console.log(err)
-    // }
   }
 
     const configAuthWrapper = {
