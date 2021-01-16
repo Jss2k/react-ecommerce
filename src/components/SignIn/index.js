@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { signInUser, signInWithGoogle, resetAllAuthForms } from './../../redux/User/user.actions'
+import { emailSignInStart, googleSignInStart } from './../../redux/User/user.actions'
 
 import './styles.scss'
 
@@ -10,49 +10,45 @@ import Button from './../../components/forms/Button'
 import FormInput from './../../components/forms/FormInput'
 
 const mapState = ({ user }) => ({
-  signInSuccess: user.signInSuccess,
-  signInError: user.signInError
+  currentUser: user.currentUser,
+  userErr: user.userErr
 })
 
 const SignIn = props => {
-  const { signInSuccess, signInError } = useSelector(mapState)
   const dispatch = useDispatch()
+  const history = useHistory()
+  const { currentUser, userErr } = useSelector(mapState)
   const[email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
 
   useEffect(() => {
-    if (signInSuccess) {
+    if (currentUser) {
       resetForm()
-      dispatch(resetAllAuthForms())
-      props.history.push('/')
+      history.push('/')
     }
 
-  }, [signInSuccess])
+  }, [currentUser])
 
   useEffect(() => {
-    if (Array.isArray(signInError) && signInError.length > 0) {
-      setErrors(signInError)
+    if (Array.isArray(userErr) && userErr.length > 0) {
+      setErrors(userErr)
     }
-  }, [signInError])
+  }, [userErr])
 
   const resetForm = () => {
     setEmail('')
     setPassword('')
-    setErrors([])
+    // setErrors([])
   } 
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(signInUser({ email, password }))
+    dispatch(emailSignInStart({ email, password }))
   }
 
   const handleGooleSignIn = () => {
-    dispatch(signInWithGoogle())
-  }
-  const socialSignIn = async () => {
-    await signInWithGoogle()
-    props.history.push('/')
+    dispatch(googleSignInStart())
   }
 
     const configAuthWrapper = {
@@ -112,4 +108,4 @@ const SignIn = props => {
     )
 }
 
-export default withRouter(SignIn)
+export default SignIn
