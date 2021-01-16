@@ -32,27 +32,9 @@ export function* getSnapshotFromUserAuth(user, additionalData = {}) {
 export function* emailSignIn({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password)
-      // .then(() => {
-        yield getSnapshotFromUserAuth(user)
-        // yield put(
-        //   signInSucces()
-        // )
-        // dispatch({
-        //   type: userTypes.SIGN_IN_SUCCES,
-        //   payload: true
-        // })
-      // })
-      // .catch(() => {
-        // const err = ['Email or password not found. Please try again.']
-        // dispatch({
-        //   type: userTypes.SIGN_IN_ERROR,
-        //   payload: err
-        // })
-      // })
-
-  } catch(err) {
-
-    yield put(
+      yield getSnapshotFromUserAuth(user)
+    } catch(err) {
+      yield put(
       userError(['Email or password not found. Please try again.'])
     )
   }
