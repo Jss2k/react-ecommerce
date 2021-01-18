@@ -4,7 +4,7 @@ import './styles.scss'
 const Dashboard = props => {
   return (
     <h1>
-      You logged in!
+      Welcome to your ccount!
     </h1>
   )
 }
