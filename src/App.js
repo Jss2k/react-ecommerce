@@ -15,6 +15,7 @@ import AdminLayout from './layouts/AdminLayout'
 import DashboardLayout from './layouts/DashboardLayout'
 
 import Homepage from './pages/Homepage'
+import Search from './pages/Search'
 import Registration from './pages/Registration'
 import Login from './pages/Login'
 import Recovery from './pages/Recovery'
@@ -59,6 +60,12 @@ const App = props => {
             <Route path="/registration" render={() => (
                   <MainLayout>
                     <Registration />
+                  </MainLayout>
+                )}
+            />
+            <Route path="/search" render={() => (
+                  <MainLayout>
+                    <Search />
                   </MainLayout>
                 )}
             />
