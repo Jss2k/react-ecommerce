@@ -1,9 +1,8 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { signOutUserStart } from './../../redux/User/user.actions'
 import './styles.scss'
-import { Link } from 'react-router-dom'
 
 import Logo from './../../assets/logo.png'
 
@@ -28,16 +27,31 @@ const Header = props => {
           </Link>
         </div>
 
+
+        <nav>
+          <ul>
+            <li>
+              <Link className="header__link" to="/">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link className="header__link" to="/search">
+                Search
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <div className="callToActions">
           {currentUser && (
             <ul>
               <li>
-                <Link to="/dashboard">
+                <Link className="header__link" to="/dashboard">
                   My Account
                 </Link>
               </li>
               <li>
-                <a onClick={() => signOut()}>
+                <a className="header__link" onClick={() => signOut()}>
                   LogOut
                 </a>
               </li>
