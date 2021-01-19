@@ -7,6 +7,7 @@ import Modal from './../../components/Modal'
 import FormInput from './../../components/forms/FormInput'
 import Button from './../../components/forms/Button'
 import FormSelect from './../../components/forms/FormSelect'
+import LoadMore from './../../components/LoadMore'
 import './styles.scss'
 
 const mapState = ({ productsData }) => ({
@@ -27,8 +28,9 @@ const Admin = props => {
     dispatch(
     fetchProductsStart()
     )
-
   }, [])
+
+  const { data, queryDoc, isLastPage } = products
 
   const toggleModal = () => setHideModal(!hideModal)
  
@@ -74,6 +76,19 @@ const Admin = props => {
   // }).then(e => {
 
   // });
+
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        startAfterDoc: queryDoc,
+        persistProducts: data
+      })
+      )
+  }
+
+  const configLoadMore = {
+    onLoadMoreEvt: handleLoadMore,
+  }
 
   return (
     <div>
@@ -156,7 +171,7 @@ const Admin = props => {
               <td>
                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
                   <tbody>
-                    {products.map((product, index) => {
+                    {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
                       const {
                         productName,
                         productThumbnail,
@@ -183,6 +198,26 @@ const Admin = props => {
                         </tr>
                       )
                     })}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellPadding="10" cellSpacing="0">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {!isLastPage && (
+                          <LoadMore {...configLoadMore}/>
+                        )}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </td>
