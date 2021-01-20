@@ -19,10 +19,10 @@ export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts
   return new Promise((resolve, reject) => {
     const pageSize = 8
 
-    let ref = firestore.collection('products').orderBy('createDate').limit(pageSize)
+    let ref = firestore.collection('products').orderBy('createDate', 'desc').limit(pageSize)
 
     if (filterType) ref = ref.where('productCategory', '==', filterType)
-    if(startAfterDoc) ref = ref.startAfter(startAfterDoc)
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc)
 
     ref
       .get()
@@ -51,7 +51,6 @@ export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts
 }
 
 export const handleDeleteProduct = documentID => {
-  console.log(documentID, 1)
   return new Promise((resolve, reject) => {
     firestore
       .collection('products')
@@ -65,4 +64,23 @@ export const handleDeleteProduct = documentID => {
         reject(err);
       })
   });
-} 
+}
+
+export const handleFetchProduct = productID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('products')
+      .doc(productID)
+      .get()
+      .then(snapshot => {
+        if (snapshot.exists) {
+          resolve(
+            snapshot.data()
+          )
+        }
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}

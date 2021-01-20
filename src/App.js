@@ -21,6 +21,7 @@ import Login from './pages/Login'
 import Recovery from './pages/Recovery'
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin'
+import ProductDetails from './pages/ProductDetails'
 import './default.scss'
 
 const App = props => {
@@ -72,6 +73,12 @@ const App = props => {
             <Route path="/search/:filterType" render={() => (
                   <MainLayout>
                     <Search />
+                  </MainLayout>
+                )}
+            />
+            <Route path="/product/:productID" render={() => (
+                  <MainLayout>
+                    <ProductDetails />
                   </MainLayout>
                 )}
             />

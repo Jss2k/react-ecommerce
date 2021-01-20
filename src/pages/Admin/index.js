@@ -8,6 +8,7 @@ import FormInput from './../../components/forms/FormInput'
 import Button from './../../components/forms/Button'
 import FormSelect from './../../components/forms/FormSelect'
 import LoadMore from './../../components/LoadMore'
+import CKEditor  from 'ckeditor4-react'
 import './styles.scss'
 
 const mapState = ({ productsData }) => ({
@@ -23,14 +24,15 @@ const Admin = props => {
   const [productName, setProductName] = useState('')
   const [productThumbnail, setProductThumbnail]= useState('')
   const [productPrice, setProductPrice]= useState(0)
+  const [productDesc, setProductDesc] = useState('')
+
+  const { data, queryDoc, isLastPage } = products
   
   useEffect(() => {
     dispatch(
     fetchProductsStart()
     )
   }, [])
-
-  const { data, queryDoc, isLastPage } = products
 
   const toggleModal = () => setHideModal(!hideModal)
  
@@ -45,6 +47,7 @@ const Admin = props => {
     setProductName('')
     setProductThumbnail('')
     setProductPrice(0)
+    setProductDesc('')
   }
 
   // useEffect(() => {
@@ -56,13 +59,13 @@ const Admin = props => {
 
   const handleSubmit = e => {
   
-
     dispatch(
       addProductStart({
         productCategory,
         productName,
         productThumbnail,
-        productPrice
+        productPrice,
+        productDesc
       })
     )
     resetForm()
@@ -150,6 +153,12 @@ const Admin = props => {
               handleChange={e => setProductPrice(e.target.value)}
             />
 
+            <CKEditor 
+              onChange={evt => setProductDesc(evt.editor.getData())}
+            />
+
+            <br />
+
             <Button type="submit">
               Add product
             </Button>
@@ -180,6 +189,7 @@ const Admin = props => {
                       } = product;
 
                       return (
+                       
                         <tr key={index}>
                           <td>
                             <img className="thumb" src={productThumbnail} alt={productName}/>

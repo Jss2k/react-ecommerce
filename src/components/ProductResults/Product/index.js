@@ -1,29 +1,47 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Button from './../../forms/Button'
+import { useDispatch } from 'react-redux'
+import { addProduct } from './../../../redux/Cart/cart.actions'
 
-const Product = ({ 
-  productThumbnail,
-  productName,
-  productPrice
- }) => {
-  if (!productThumbnail || !productName ||
+const Product = (product) => {
+  const dispatch = useDispatch()
+  const {
+    documentID,
+    productThumbnail,
+    productName,
+    productPrice
+  } = product
+
+  if (!documentID || !productThumbnail || !productName ||
     typeof productPrice === 'undefined') return null
 
     const configAddToCardBtn = {
       type: 'button'
     }
 
+  const handleAddToCart = (product) => {
+    if (!product) return;
+     dispatch(
+      addProduct(product)
+    )
+  }
+
   return (
     <div className="products__card card">
       <div className="card__thumb">
-        <img src={productThumbnail} alt={productName} />
+        <Link to={`/product/${documentID}`} >
+          <img src={productThumbnail} alt={productName} />
+        </Link>
       </div>
 
       <div className="card__body">
         <ul>
           <li>
             <span className="card__name">
-              {productName}
+              <Link to={`/product/${documentID}`}>
+                {productName}
+              </Link>
             </span>
           </li>
           <li>
@@ -32,7 +50,7 @@ const Product = ({
             </span>
           </li>
           <li>
-            <Button {...configAddToCardBtn}>
+            <Button {...configAddToCardBtn} onClick={() => handleAddToCart(product)}>
               Add to card
             </Button>
           </li>
