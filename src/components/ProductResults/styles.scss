@@ -45,9 +45,12 @@
   &__thumb {
     height: 35rem;
     text-align: center;
-    img {
-      max-width: 100%;
+    a {
       height: inherit;
+      img {
+        max-width: 100%;
+        height: inherit;
+      }
     }
   }
 
