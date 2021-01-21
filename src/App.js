@@ -82,6 +82,11 @@ const App = props => {
                   </MainLayout>
                 )}
             />
+            <Route path="/cart" render={() => (
+              <MainLayout>
+                <Cart />
+              </MainLayout>
+            )} />
             <Route path="/login" render={() => (
                 <MainLayout>
                   <Login />
