@@ -22,5 +22,5 @@ export const selectCartTotal = createSelector(
     cartItems.reduce(
       (quantity, cartItem) =>
         quantity + cartItem.quantity * cartItem.productPrice,
-    0)
+    0).toFixed(2)
 )

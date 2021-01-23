@@ -2,7 +2,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectCartItems, selectCartTotal } from './../../redux/Cart/cart.selectors'
-import { selectCartItems } from './../../redux/Cart/cart.selectors'
 import { createStructuredSelector } from 'reselect'
 import './styles.scss'
 import Button from './../forms/Button'
@@ -30,6 +29,7 @@ const Checkout = ({ }) => {
           <table border="0" cellPadding="0" cellSpacing="0">
           <tbody>
             <tr>
+              <td>
               <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
                 <tbody>
                   <tr>
@@ -51,8 +51,10 @@ const Checkout = ({ }) => {
                   </tr>
                 </tbody>
               </table>
+              </td>
             </tr>
             <tr>
+              <td>
               <table border="0" cellSpacing="0" cellPadding="0">
                 <tbody>
                   {cartItems.map((item, pos) => {
@@ -66,35 +68,50 @@ const Checkout = ({ }) => {
                   })}
                 </tbody>
               </table>
+              </td>
             </tr>
             <tr>
-              <table algin="right" border="0" cellSpacing="0" cellPadding="10">
-                <tr algin="right">
+              <td>
+              <table border="0" cellSpacing="0" cellPadding="0">
+                <tbody>
+                  <tr>
+                    <td>
+                      <table border="0" cellPadding="10" cellSpacing="0">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <h3>
+                                Total: ${total}
+                              </h3>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                <tr>
                   <td>
-                    <h3>
-                      Total: ${total}
-                    </h3>
+                    <table border="0" cellPadding="10" cellSpacing="0">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <Button onClick={() => history.goBack()}>
+                              Continue Shopping
+                            </Button>
+                          </td>
+                          <td>
+                            <Button onClick={() => history.push('/payment')}>
+                              Checkout
+                            </Button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </td>
                 </tr>
-                <tr>
-                  <table border="0" cellPadding="10" cellSpacing="0">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <Button onClick={() => history.goBack()}>
-                            Continue Shopping
-                          </Button>
-                        </td>
-                        <td>
-                          <Button>
-                            
-                          </Button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </tr>
+                </tbody>
               </table>
+              </td>
             </tr>
           </tbody>
         </table>

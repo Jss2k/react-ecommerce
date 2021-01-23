@@ -59,8 +59,8 @@ const Item = (product) => {
             ${productPrice}
           </td>
           <td align="center">
-            <span className="cartBtn" onClick={() => handleRemoveCartItem(documentID)}>
-              X
+          <span className="cartBtn remove" onClick={() => handleRemoveCartItem(documentID)}>
+                X
             </span>
           </td>
         </tr>
