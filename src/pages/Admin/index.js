@@ -198,7 +198,7 @@ const Admin = props => {
                             {productName}
                           </td>
                           <td>
-                            ${productPrice}
+                            ${(Math.floor(productPrice*100)/100).toFixed(2) }
                           </td>
                           <td>
                             <Button onClick={() => dispatch(deleteProductsStart(documentID))}>

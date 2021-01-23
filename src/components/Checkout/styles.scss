@@ -17,6 +17,7 @@
   .cart {
     max-width: 100.0rem;
     margin: 0 auto;
+    
 
     table {
       width: 100%;
@@ -49,5 +50,27 @@
   .cartBtn {
     cursor: pointer;
   }
+}
+  @media only screen and (max-width: 980px) {
 
+    .checkoutHeader {
+      display: none;
+    }
+  
+    .cartItem {
+      border: 1px solid black;
+    }
+  
+    .checkout .cart td {
+      display: block;
+      width: 100%;
+    }
+  
+    .checkout .cartBtn.remove {
+      display: block;
+      width: 100%;
+      padding: 1.0rem;
+      background-color: black;
+      color: white;
+    }
 }

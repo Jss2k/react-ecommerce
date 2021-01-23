@@ -22,6 +22,9 @@ import Recovery from './pages/Recovery'
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin'
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
+import Payment from './pages/Payment'
+import Order from './pages/Order'
 import './default.scss'
 
 const App = props => {
@@ -87,6 +90,13 @@ const App = props => {
                 <Cart />
               </MainLayout>
             )} />
+            <Route path="/payment" render={() => (
+              <WithAuth>
+                <MainLayout>
+                  <Payment />
+                </MainLayout>
+              </WithAuth>
+            )} />
             <Route path="/login" render={() => (
                 <MainLayout>
                   <Login />
@@ -104,6 +114,13 @@ const App = props => {
                 </DashboardLayout>
               </WithAuth>
               )} />
+            <Route path="/order/:orderID" render={() => (
+              <WithAuth>
+                <DashboardLayout>
+                  <Order />
+                </DashboardLayout>
+              </WithAuth>
+            )} />
             <Route path="/admin" render={() => (
               <WithAdminAuth>
                 <AdminLayout>
