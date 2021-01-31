@@ -4,7 +4,9 @@ import {
         signInSuccess,
         signOutUserSuccess,
         resetPasswordSuccess,
-        userError
+        userError,
+        setCurrentUserPicture,
+        fetchUserPicture
         } from './user.actions'
 import { 
         auth,
@@ -12,7 +14,7 @@ import {
         GoogleProvider,
         getCurrentUser
        } from './../../firebase/utils'
-import { handleResetPasswordAPI } from './user.helpers'
+import { handleResetPasswordAPI, handleFetchUserPicture, handleAddUserPicture } from './user.helpers'
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
@@ -131,6 +133,40 @@ export function* onGoogleSignInStart() {
   yield takeLatest(userTypes.GOOGLE_SIGN_IN_START, googleSignIn)
 }
 
+export function* addUsersPicture({payload: {
+  picture, id
+}}) {
+  try {
+    
+    yield (
+      handleAddUserPicture({picture, id})
+      )
+    yield put(fetchUserPicture({id}))
+  } catch(err) {
+    // console.log(err)
+  }
+} 
+
+export function* onAddUsersPictureStart() {
+  yield takeLatest(userTypes.ADD_USER_PICTURE, addUsersPicture)
+}
+
+export function* fetchPicture({ payload: {id} }) {
+  try {
+    const currentPicture = yield handleFetchUserPicture(id);
+    yield put(
+      setCurrentUserPicture(currentPicture)
+    )
+
+  } catch (err) {
+    // console.log(err);
+  }
+}
+
+export function* onFetchPictureStart() {
+  yield takeLatest(userTypes.FETCH_USER_PICTURE, fetchPicture);
+}
+
 export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
@@ -138,6 +174,8 @@ export default function* userSagas() {
     call(onSignOutUserStart),
     call(onSignUpUserStart),
     call(onResetPasswordStart),
-    call(onGoogleSignInStart)
+    call(onGoogleSignInStart),
+    call(onAddUsersPictureStart),
+    call(onFetchPictureStart)
   ])
 }
