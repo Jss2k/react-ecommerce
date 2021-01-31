@@ -3,7 +3,8 @@ import userTypes from './user.types'
 const INITIAL_STATE = {
   currentUser: null,
   resetPasswordSuccess: false,
-  userErr: []
+  userErr: [],
+  currentPicture: {}
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +30,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...INITIAL_STATE
+      }
+    case userTypes.ADD_USER_PICTURE:
+      return {
+        ...state,
+        userPicture: action.payload,
+      }
+    case userTypes.SET_CURRENT_USER_PICTURE:
+      return {
+        ...state,
+        currentPicture: action.payload,
       }
     default:
       return state

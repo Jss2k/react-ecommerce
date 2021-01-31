@@ -58,3 +58,18 @@ export const setCurrentUser = user => ({
 export const resetAllAuthForms = () => ({
   type: userTypes.RESET_AUTH_FORMS
 })
+
+export const addUserPicture = userPicture => ({
+  type: userTypes.ADD_USER_PICTURE,
+  payload: userPicture
+})
+
+export const fetchUserPicture = currentPicture => ({
+  type: userTypes.FETCH_USER_PICTURE,
+  payload: currentPicture
+})
+
+export const setCurrentUserPicture = (currentPicture) => ({
+  type: userTypes.SET_CURRENT_USER_PICTURE,
+  payload: currentPicture
+})

@@ -11,12 +11,34 @@
 
       .img {
         display: block;
-        width: 5.0rem;
+        width: 100%;
+        max-width: 25rem;
         margin: 0 auto;
+        padding: 20px;
 
-        img {
-          display: block;
-          width: 100%;
+          img {
+            display: block;
+            width: 100%;
+          }
+          .uploadImg{
+            display: flex;
+            label {
+              text-align: right;
+              cursor: pointer;
+              margin: 0 auto;
+              i{
+                font-size: 2.5rem;
+                z-index: 1;
+              }
+            }
+            
+            .formRow{
+              display: none;
+            }
+         }
+
+        .error span {
+          color:red
         }
       }
 
@@ -31,4 +53,4 @@
       }
     }
   }
-} 
+}
