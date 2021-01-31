@@ -4,21 +4,19 @@ import UserProfile from './../UserProfile'
 import './styles.scss'
 
 const mapState = ({ user }) => ({
-  currentUser: user.currentUser
+  currentUser: user.currentUser,
+  currentPicture: user.currentPicture
 })
 
 const VerticalNav = ({ children }) => {
-  const { currentUser } = useSelector(mapState);
-
+  const { currentUser, currentPicture } = useSelector(mapState);
   const configUserProfile = {
-    currentUser
+    currentUser, currentPicture
   }
 
   return (
     <div className="verticalNav">
-
       <UserProfile {...configUserProfile} />
-
       <div className="menu">
         {children}
       </div>

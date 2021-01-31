@@ -23,6 +23,7 @@ const Signup = props => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errors, setErrors] = useState([])
 
+
   useEffect(() => {
     if (currentUser) {
       resetForm()
@@ -43,19 +44,21 @@ const Signup = props => {
     setConfirmPassword('')
     setErrors([])
   } 
+
   const handleFormSubmit = event => {
     event.preventDefault()
     dispatch(signUpUserStart({
       displayName,
       email,
       password,
-      confirmPassword 
+      confirmPassword
     }))
   }
 
     const configAuthWrapper = {
       headline: 'Registration'
     }
+
     return (
       <AuthWrapper {...configAuthWrapper}>
         <div className="formWrap">
